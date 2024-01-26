@@ -4,14 +4,16 @@
 This project is a web application built using React (with Next.js) and Express.js. It features a game collection management system where users can register, log in, add games to their collection, update game details, and delete games. The frontend is built with React and Next.js, offering a responsive user interface, while the backend is an Express.js server that handles API requests for user authentication and game management.
 
 ## **Key Features**
-User Authentication: Register, Login, Logout
-Game Management: Add, Update, Delete games
-Responsive Frontend with Next.js
-Backend API with Express.js
-Frontend
+-User Authentication: Register, Login, Logout
+-Game Management: Add, Update, Delete games
+-Responsive Frontend with Next.js
+-Backend API with Express.js
+
+
+## Frontend
 The frontend is built with React and Next.js. The main components of the frontend include:
 
-**Home**:  The main component that handles routing between the login, registration, and landing pages.
+-**Home**:  The main component that handles routing between the login, registration, and landing pages.
 **Login**: Manages user login.
 **Register**: Handles user registration.
 **Landing**: The main dashboard for logged-in users, showing the game collection and options to add/update/delete games.
