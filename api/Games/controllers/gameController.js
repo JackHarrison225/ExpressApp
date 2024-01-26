@@ -16,7 +16,17 @@ exports.getAllGames = async function (req, res, next) {
 exports.createGame = async function (req, res, next) {
 
      try {
-          const newGame = new Games({ name : req.body.name, played : req.body.played});
+          const newGame = new Games({ gameName : req.body.gameName, releaseDate: req.body.releaseDate, imageData: req.body.imageData});
+          console.log(newGame)
+          
+          if (newGame.releaseDate instanceof Date) {
+               newGame.releaseDate = newGame.releaseDate.toISOString().split('T')[0]
+          } else {
+               newGame.releaseDate = newGame.releaseDate.split('T')[0]
+          }
+
+          
+         
           await newGame.save()
           res.status(201).json(newGame)
      } catch (error) {
