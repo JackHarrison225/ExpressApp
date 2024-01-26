@@ -1,8 +1,35 @@
-import React from "react";
+import React, {useState} from "react";
 import Image from "next/image";
 
-const GameCard = ({ gameName, releaseDate, gameImg, onUpdate, onDelete, isPlayed, onPlayStatusChange }) => {
-    const formattedReleaseDate = releaseDate ? new Date(releaseDate).toISOString().split("T")[0] : "";
+const GameCard = ({ gameName, releaseDate, gameImg, onUpdate, onDelete, client}) => {
+     const [played, setPlayed] = useState(false);
+     const [difficulty, setDifficulty] = useState("");
+    
+     
+     const formattedReleaseDate = releaseDate ? new Date(releaseDate).toISOString().split("T")[0] : "";
+
+     const updateGameStatus = async () => {
+          const updatedData = {
+               played: played,
+               difficulty: difficulty,
+          }
+
+          try {
+               await client.updateI(gameId, updatedData)
+          } catch (error) {
+               console.error("Error updating game: ", error);
+          }
+     }
+
+     const handlePlayedChange = (e) => {
+          setPlayed(e.target.checked);
+          updateGameStatus();
+      };
+  
+      const handleDifficultyChange = (e) => {
+          setDifficulty(e.target.value);
+          updateGameStatus();
+      };
 
     return (
         <div className="flex flex-col border border-gray-200 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300">
@@ -34,8 +61,8 @@ const GameCard = ({ gameName, releaseDate, gameImg, onUpdate, onDelete, isPlayed
                     <p>Played</p>
                     <input 
                         type="checkbox" 
-                        checked={isPlayed}
-                        onChange={onPlayStatusChange}
+                        checked={played}
+                        onChange={handlePlayedChange}
                         className="form-checkbox text-blue-600"
                     />
                 </div>
@@ -43,8 +70,11 @@ const GameCard = ({ gameName, releaseDate, gameImg, onUpdate, onDelete, isPlayed
                     <label htmlFor="difficulty" className="text-sm text-gray-700">Difficulty:</label>
                     <select
                         name="difficulty"
+                        value={difficulty}
+                        onChange={handleDifficultyChange}
                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 mt-1"
-                    >
+                    >    
+          
                         <option value="easy">Easy</option>
                         <option value="medium">Medium</option>
                         <option value="hard">Hard</option>

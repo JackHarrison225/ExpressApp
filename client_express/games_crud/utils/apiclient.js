@@ -44,6 +44,10 @@ export class ApiClient {
         return this.authenticatedCall("put", `${url}games/update${id}`, {gameName, releaseDate, imageData})
     }
 
+    updateInputs(id, played, difficulty) {
+        return this.authenticatedCall("put", `${url}games/update${id}`, {played, difficulty})
+    }
+
     async login(username, password) {
         return await axios({
             method: "post",
@@ -51,5 +55,14 @@ export class ApiClient {
             data: {username, password}
         })
     }
+
+    
+    // async register(username, password) {
+    //     return await axios({
+    //         method: "post",
+    //         url: `${url}register`,
+    //         data: {username, password}
+    //     })
+    // }
 
 }
