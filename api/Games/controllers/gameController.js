@@ -16,7 +16,20 @@ exports.getAllGames = async function (req, res, next) {
 exports.createGame = async function (req, res, next) {
 
      try {
-          const newGame = new Games({ name : req.body.name, played : req.body.played});
+
+          let = releaseDate = req.body.releaseDate
+
+          if(releaseDate) {
+               releaseDate = new Date(releaseDate).toISOString().split('T')[0]
+          }
+          const newGame = new Games({ gameName : req.body.gameName, releaseDate: releaseDate, imageData: req.body.imageData, played: req.body.played, difficulty: req.body.difficulty});
+          console.log(newGame)
+
+          
+          
+
+          
+         
           await newGame.save()
           res.status(201).json(newGame)
      } catch (error) {
@@ -45,7 +58,7 @@ exports.updateGame = async function (req, res, next) {
           const updatedGame = await Games.findByIdAndUpdate(gameListID, req.body, {new: true})
 
           if(!updatedGame) {
-               return next(new Error('Game not found'));
+               return next(createError(404, 'Game not found'));
           }
 
           res.status(200).json(updatedGame)

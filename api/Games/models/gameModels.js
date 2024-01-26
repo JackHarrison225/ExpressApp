@@ -4,14 +4,25 @@ const mongoose = require("mongoose")
 
 const gameSchema =  new mongoose.Schema({
  
-    name: {
+    gameName: {
         type: String,
         required: true
     },
-    played: {
-        type: Boolean,
+    releaseDate: {
+        type: Date,
         required: true
-    }
+    },
+    imageData: {
+        type: String,
+        required: true 
+    },
+    played: Boolean,
+    
+    difficulty: {
+        type: String,
+    
+    } 
+
 })
 
 module.exports = mongoose.model("Games", gameSchema);
