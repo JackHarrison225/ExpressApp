@@ -3,3 +3,33 @@
 @tailwind utilities;
 
 
+.dynamic-bg {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+.dynamic-bg::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    bottom: -50%;
+    left: -50%;
+    background: inherit;
+    filter: blur(40px);
+    z-index: -1;
+}
+
+.dynamic-bg::after {
+    content: '';
+    position: absolute;
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    left: 0;
+    background: inherit;
+    z-index: -1;
+    clip-path: circle(30% at right 80%);
+}

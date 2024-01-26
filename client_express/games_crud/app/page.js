@@ -3,23 +3,42 @@ import { useEffect, useState } from "react";
 import { ApiClient } from "@/utils/apiclient";
 import Landing from "./landing/page";
 import Login from "./login/page";
+import Register from "./register/page";
+
 
 export default function Home() {
 
   const [token, setToken] = useState(null);
+  const [showLogin, setShowLogin] = useState(true);
   const client = new ApiClient(() => token, () => logout())
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      setToken(token);
+    const storedToken = localStorage.getItem("token");
+    if (storedToken) {
+      setToken(storedToken);
+    } else {
+      localStorage.removeItem("token")
     }
   }, []);
 
   const login = (token) => {
     localStorage.setItem("token", token);
+    console.log(token)
     setToken(token);
+    
   }
+
+  const register = (token) => {
+    localStorage.setItem("token", token);
+    console.log(token)
+    setToken(token);
+};
+
+  const toggleView = () => {
+    setShowLogin(!showLogin)
+  }
+
+
 
   const logout = () => {
     localStorage.removeItem("token");
@@ -31,10 +50,18 @@ export default function Home() {
       {
         token ? (
           <Landing
-          client ={client}/>
+          client ={client}
+          logout={logout}
+       />
         ) : (
-          <Login loggedIn={(token) => login(token)} client={client}/>
-        )
+
+          showLogin ? (
+            <Login loggedIn={(token) => login(token)} client={client}/>
+          ) : (
+            <Register registeredIn={(token) => register(token)} client={client} toggleView={toggleView} />
+          )
+         
+        ) 
       }
    </div>
   );

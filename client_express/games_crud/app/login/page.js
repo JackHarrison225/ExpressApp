@@ -1,4 +1,6 @@
+'use client'
 import { useState } from "react";
+import Link from 'next/link'
 
 const Login = (props) => {
     const [disabled, setDisabled] = useState(false);
@@ -50,6 +52,8 @@ const Login = (props) => {
                         Login
                     </button>
                 </form>
+                {/* <button onClick={props.toggleView}>Don't have an account?
+                    <Link href="/register"> Sign Up</Link></button> */}
             </div>
         </div>
     );

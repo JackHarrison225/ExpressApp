@@ -1,24 +1,30 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const Add = (props) => {
     const [disabled, setDisabled] = useState(false);
+    const [currentGame, setCurrentGame] = useState(props.currentGame);
+
+    useEffect(() => {
+        setCurrentGame(props.currentGame);
+    }, [props.currentGame]);
 
     const submitHandler = (e) => {
         e.preventDefault();
         setDisabled(true);
 
+        const gameData = {
+            gameName: e.target.gameName.value,
+            releaseDate: e.target.releaseDate.value,
+            imageData: e.target.imageData.value,
+            played: e.target.played.checked,
+            difficulty: e.target.difficulty.value
+        };
+
         let result;
-
-        if (!e.target.gameName.value || !e.target.releaseDate.value || !e.target.imageData.value) {
-            alert("Please enter a valid name, release date, and image");
-            setDisabled(false);
-            return;
-        }
-
-        if (props.currentGame) {
-            result = props.client.updateGame(props.currentGame._id, e.target.gameName.value, e.target.releaseDate.value, e.target.imageData.value);
+        if (currentGame) {
+            result = props.client.updateGame(currentGame._id, gameData);
         } else {
-            result = props.client.addGame(e.target.gameName.value, e.target.releaseDate.value, e.target.imageData.value);
+            result = props.client.addGame(gameData);
         }
 
         result.then(() => {

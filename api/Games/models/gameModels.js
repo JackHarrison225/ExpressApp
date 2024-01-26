@@ -21,7 +21,13 @@ const gameSchema =  new mongoose.Schema({
     difficulty: {
         type: String,
     
-    } 
+    },
+
+    // user: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'Login',
+    //     required: true
+    // }
 
 })
 
