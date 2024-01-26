@@ -16,6 +16,12 @@ const gameSchema =  new mongoose.Schema({
         type: String,
         required: true 
     },
+    played: Boolean,
+    
+    difficulty: {
+        type: String,
+    
+    } 
 
 })
 
